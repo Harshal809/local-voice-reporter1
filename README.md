@@ -28,17 +28,13 @@
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/civicpulse.git
+git clone [https://github.com/your-username/civicpulse.git](https://github.com/Harshal809/local-voice-reporter1.git)
 cd civicpulse
 
 # Install dependencies
 npm install
 
-# Add environment variables in `.env`
-VITE_API_BASE_URL=
-MAPBOX_API_KEY=
-MONGODB_URI=
-JWT_SECRET=
+
 
 # Run the application
 npm run dev
