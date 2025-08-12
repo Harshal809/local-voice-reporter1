@@ -63,7 +63,7 @@ const IssueCategories = () => {
                 <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
                   {category.icon}
                 </div>
-                <CardTitle className="text-xl text-foreground">
+                <CardTitle className="text-xl text-black">
                   {category.title}
                 </CardTitle>
               </CardHeader>
