@@ -1,0 +1,108 @@
+import { useState } from "react";
+import { loginUser } from "../lib/auth";
+import { useNavigate  } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Header from "./Header";
+import heroImage from "@/assets/civic-hero.jpg";
+
+
+export default function SignupForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate= useNavigate();
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+    const result = await loginUser(email, password);
+    setLoading(false);
+
+    if (result.success) {
+      setMessage("Login successful! Redirecting you to dashboard...");
+      setTimeout(() => {
+        navigate('/dashboard')
+      }, 1500)
+    } else {
+      setMessage(`Error: ${result.message}`);
+    }
+  };
+
+  return (
+    <div className={"bg-white/80"}>
+      <Header />
+      <div className="relative w-full h-screen">
+      
+      <img 
+        src={heroImage}
+        alt="Citizens reporting civic issues"
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/90"></div>
+
+    <div className="absolute inset-0 flex items-center justify-center px-4">
+      <div className="bg-white/80 backdrop-blur-md p-8 rounded-xl shadow-lg max-w-md w-full">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Welcome Back!
+                </h2>
+                <form onSubmit={handleSignup} className="space-y-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                    </label>
+                    <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Password
+                    </label>
+                    <input
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="border border-gray-300 p-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                >
+                    {loading ? "Logging you in..." : "Log In"}
+                </button>
+
+                {message && (
+                    <p
+                    className={`text-sm mt-2 ${
+                        message.startsWith("Error: ") ? "text-red-600" : "text-green-600"
+                    }`}
+                    >
+                    {message}
+                    </p>
+                )}
+                </form>
+                <p className="mt-4 text-sm text-gray-600 text-center">
+                Don't have an account?{" "}
+                <Link to="/signup" className="text-blue-600 hover:underline">
+                    Sign Up
+                </Link>
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+  );
+}
