@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+
 import ThemeToggle from "./ThemeToggle";
 
+
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="bg-background border-b border-border">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -12,7 +16,7 @@ const Header = () => {
           </div>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-4">
           <a href="#home" className="text-foreground hover:text-primary transition-colors">
             Home
           </a>
@@ -22,8 +26,11 @@ const Header = () => {
           <a href="#status" className="text-foreground hover:text-primary transition-colors">
             Track Status
           </a>
-          <Button variant="default" size="sm">
+          <Button variant="default" size="sm" onClick={() => navigate("/login")}>
             Login
+          </Button>
+          <Button variant="default" size="sm" onClick={() => navigate("/signup")}>
+            Sign Up
           </Button>
           <ThemeToggle />
         </nav>
