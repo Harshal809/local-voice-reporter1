@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
+import ThemeToggle from "./ThemeToggle";
+
+
 const Header = () => {
   const navigate = useNavigate();
   return (
@@ -29,6 +32,7 @@ const Header = () => {
           <Button variant="default" size="sm" onClick={() => navigate("/signup")}>
             Sign Up
           </Button>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
