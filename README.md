@@ -1,40 +1,73 @@
-# 🏙️ CivicPulse
+# Welcome to your Lovable project
 
-**CivicPulse** is a web-based civic issue reporting platform that empowers local citizens to raise and track problems in their neighborhoods. From potholes and streetlight failures to garbage collection and water leaks — CivicPulse connects people with authorities and communities to make cities more responsive and transparent.
+## Project info
 
-## 🚀 Features want to implement
+**URL**: https://lovable.dev/projects/ae0a3cac-603a-4bfd-b5e4-646337eceaf9
 
-- 📍 **Location-Based Reporting**: Users can tag issues using GPS or interactive maps.
-- 📝 **Issue Submission**: Report problems with title, description, category, and optional image.
-- 🗳️ **Upvote System**: Citizens can upvote issues to prioritize critical ones.
-- 💬 **Comment Section**: Discuss ongoing problems or give updates.
-- 🎯 **Issue Status Tracking**: Admins/authorities can mark issues as "In Progress", "Resolved", etc.
-- 👨‍💻 **Admin Panel**: View, filter, and manage incoming civic reports.
-- 📊 **Analytics Dashboard** *(optional)*: View problem heatmaps, category trends, etc.
+## How can I edit this code?
 
-## 🛠 Tech Stack
+There are several ways of editing your application.
 
-- **Frontend**: React.js, Tailwind CSS, Leaflet.js (for maps)
-- **Backend**: Node.js, Express.js, REST APIs
-- **Database**: MongoDB + Mongoose
-- **Authentication**: JWT, bcrypt
-- **Other Tools**: Git, GitHub, Cloudinary (for image uploads), Mapbox/OpenStreetMap API
+**Use Lovable**
 
-## 📸 Screenshots
+Simply visit the [Lovable Project](https://lovable.dev/projects/ae0a3cac-603a-4bfd-b5e4-646337eceaf9) and start prompting.
 
-> *(Add UI screenshots or GIFs here if available)*
+Changes made via Lovable will be committed automatically to this repo.
 
-## 📦 Installation
+**Use your preferred IDE**
 
-```bash
-# Clone the repo
-git clone [https://github.com/your-username/civicpulse.git](https://github.com/Harshal809/local-voice-reporter1.git)
-cd civicpulse
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-# Install dependencies
-npm install
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
+Follow these steps:
 
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-# Run the application
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
+```
+
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/ae0a3cac-603a-4bfd-b5e4-646337eceaf9) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
