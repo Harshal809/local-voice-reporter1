@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -33,12 +40,13 @@ export function AuthPage() {
         title: "Welcome back!",
         description: "You have successfully signed in to CivicPulse.",
       });
-      
-      navigate('/');
+
+      navigate("/");
     } catch (error: any) {
       toast({
         title: "Sign in failed",
-        description: error.message || "Please check your credentials and try again.",
+        description:
+          error.message || "Please check your credentials and try again.",
         variant: "destructive",
       });
     } finally {
@@ -68,8 +76,8 @@ export function AuthPage() {
         title: "Account created!",
         description: "Please check your email to verify your account.",
       });
-      
-      navigate('/');
+
+      navigate("/");
     } catch (error: any) {
       toast({
         title: "Sign up failed",
@@ -92,13 +100,14 @@ export function AuthPage() {
               CivicPulse
             </h1>
           </div>
-          
+
           <div className="space-y-4">
             <h2 className="text-3xl font-bold text-foreground">
               Empower Your Community
             </h2>
             <p className="text-xl text-muted-foreground">
-              Report civic issues, track their progress, and make your neighborhood a better place to live.
+              Report civic issues, track their progress, and make your
+              neighborhood a better place to live.
             </p>
           </div>
 
@@ -107,7 +116,9 @@ export function AuthPage() {
               <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold">Location-Based Reporting</h3>
-                <p className="text-sm text-muted-foreground">Report issues with precise location tracking</p>
+                <p className="text-sm text-muted-foreground">
+                  Report issues with precise location tracking
+                </p>
               </div>
             </div>
 
@@ -115,7 +126,9 @@ export function AuthPage() {
               <Users className="h-6 w-6 text-secondary flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold">Community Voting</h3>
-                <p className="text-sm text-muted-foreground">Prioritize issues through community support</p>
+                <p className="text-sm text-muted-foreground">
+                  Prioritize issues through community support
+                </p>
               </div>
             </div>
 
@@ -123,7 +136,9 @@ export function AuthPage() {
               <Shield className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold">Real-Time Tracking</h3>
-                <p className="text-sm text-muted-foreground">Follow issue status from report to resolution</p>
+                <p className="text-sm text-muted-foreground">
+                  Follow issue status from report to resolution
+                </p>
               </div>
             </div>
 
@@ -131,7 +146,9 @@ export function AuthPage() {
               <MessageSquare className="h-6 w-6 text-success flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold">Community Discussion</h3>
-                <p className="text-sm text-muted-foreground">Collaborate and discuss solutions</p>
+                <p className="text-sm text-muted-foreground">
+                  Collaborate and discuss solutions
+                </p>
               </div>
             </div>
           </div>
@@ -147,14 +164,16 @@ export function AuthPage() {
           </CardHeader>
 
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mx-6">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            </TabsList>
+            <CardContent className="pb-0">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="signin">Sign In</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              </TabsList>
+            </CardContent>
 
             <TabsContent value="signin">
               <form onSubmit={handleSignIn}>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-4">
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -178,12 +197,14 @@ export function AuthPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-civic"
                     disabled={loading}
                   >
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Sign In
                   </Button>
                 </CardFooter>
@@ -192,7 +213,7 @@ export function AuthPage() {
 
             <TabsContent value="signup">
               <form onSubmit={handleSignUp}>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 pt-4">
                   <div className="space-y-2">
                     <Label htmlFor="fullName">Full Name</Label>
                     <Input
@@ -228,12 +249,14 @@ export function AuthPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-civic"
                     disabled={loading}
                   >
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Create Account
                   </Button>
                 </CardFooter>
