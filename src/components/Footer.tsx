@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
@@ -42,6 +43,11 @@ const Footer = () => {
               <li>📧 support@civicpulse.in</li>
               <li>📞 1800-CIVIC-HELP</li>
               <li>🕐 24/7 Available</li>
+              <li>
+                <Link to="/contact" className="hover:text-secondary transition-colors">
+                  💬 Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

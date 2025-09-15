@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    
     "noImplicitAny": false,
     "noUnusedParameters": false,
     "skipLibCheck": true,
@@ -17,3 +18,4 @@
     "strictNullChecks": false
   }
 }
+
