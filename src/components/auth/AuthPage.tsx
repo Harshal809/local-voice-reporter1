@@ -16,76 +16,103 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, MapPin, Users, Shield, MessageSquare } from "lucide-react";
 
+function isPasswordStrong(password: string) {
+  return password.length >= 6 && /[A-Za-z]/.test(password) && /\d/.test(password);
+}
+
 export function AuthPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [loading, setLoading] = useState(false);
+  // Separate state for sign-in and sign-up
+  const [signIn, setSignIn] = useState({ email: "", password: "" });
+  const [signUp, setSignUp] = useState({ fullName: "", email: "", password: "" });
+  const [loading, setLoading] = useState({ signin: false, signup: false });
+  const [error, setError] = useState({ signin: "", signup: "" });
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Generic input handler
+  const handleInput =
+    (form: "signin" | "signup", field: string) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (form === "signin") {
+        setSignIn((prev) => ({ ...prev, [field]: e.target.value }));
+      } else {
+        setSignUp((prev) => ({ ...prev, [field]: e.target.value }));
+      }
+      setError((prev) => ({ ...prev, [form]: "" }));
+    };
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, signin: true }));
+    setError((prev) => ({ ...prev, signin: "" }));
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: signIn.email,
+        password: signIn.password,
       });
 
-      if (error) throw error;
+      if (signInError) throw new Error("Invalid email or password.");
 
       toast({
         title: "Welcome back!",
         description: "You have successfully signed in to CivicPulse.",
       });
 
+      setSignIn({ email: "", password: "" });
       navigate("/");
-    } catch (error: any) {
-      toast({
-        title: "Sign in failed",
-        description:
-          error.message || "Please check your credentials and try again.",
-        variant: "destructive",
-      });
+    } catch (err: any) {
+      setError((prev) => ({
+        ...prev,
+        signin: "Invalid email or password.",
+      }));
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, signin: false }));
     }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, signup: true }));
+    setError((prev) => ({ ...prev, signup: "" }));
+
+    if (!isPasswordStrong(signUp.password)) {
+      setError((prev) => ({
+        ...prev,
+        signup: "Password must be at least 6 characters and contain a number and a letter.",
+      }));
+      setLoading((prev) => ({ ...prev, signup: false }));
+      return;
+    }
 
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
+      const { error: signUpError } = await supabase.auth.signUp({
+        email: signUp.email,
+        password: signUp.password,
         options: {
           emailRedirectTo: `${window.location.origin}/`,
           data: {
-            full_name: fullName,
+            full_name: signUp.fullName,
           },
         },
       });
 
-      if (error) throw error;
+      if (signUpError) throw new Error("Unable to create account. Please try again.");
 
       toast({
         title: "Account created!",
         description: "Please check your email to verify your account.",
       });
 
+      setSignUp({ fullName: "", email: "", password: "" });
       navigate("/");
-    } catch (error: any) {
-      toast({
-        title: "Sign up failed",
-        description: error.message || "Please try again.",
-        variant: "destructive",
-      });
+    } catch (err: any) {
+      setError((prev) => ({
+        ...prev,
+        signup: "Unable to create account. Please try again.",
+      }));
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, signup: false }));
     }
   };
 
@@ -162,7 +189,6 @@ export function AuthPage() {
               Join your community in making positive change
             </CardDescription>
           </CardHeader>
-
           <Tabs defaultValue="signin" className="w-full">
             <CardContent className="pb-0">
               <TabsList className="grid w-full grid-cols-2">
@@ -170,39 +196,43 @@ export function AuthPage() {
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
             </CardContent>
-
             <TabsContent value="signin">
-              <form onSubmit={handleSignIn}>
+              <form onSubmit={handleSignIn} autoComplete="off">
                 <CardContent className="space-y-4 pt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="signin-email">Email</Label>
                     <Input
-                      id="email"
+                      id="signin-email"
                       type="email"
                       placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={signIn.email}
+                      onChange={handleInput("signin", "email")}
                       required
+                      autoComplete="username"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="signin-password">Password</Label>
                     <Input
-                      id="password"
+                      id="signin-password"
                       type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={signIn.password}
+                      onChange={handleInput("signin", "password")}
                       required
+                      autoComplete="current-password"
                     />
                   </div>
+                  {error.signin && (
+                    <p className="text-sm text-red-600">{error.signin}</p>
+                  )}
                 </CardContent>
                 <CardFooter>
                   <Button
                     type="submit"
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-civic"
-                    disabled={loading}
+                    disabled={loading.signin}
                   >
-                    {loading && (
+                    {loading.signin && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
                     Sign In
@@ -210,18 +240,18 @@ export function AuthPage() {
                 </CardFooter>
               </form>
             </TabsContent>
-
             <TabsContent value="signup">
-              <form onSubmit={handleSignUp}>
+              <form onSubmit={handleSignUp} autoComplete="off">
                 <CardContent className="space-y-4 pt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="fullName">Full Name</Label>
+                    <Label htmlFor="signup-fullName">Full Name</Label>
                     <Input
-                      id="fullName"
+                      id="signup-fullName"
                       placeholder="John Doe"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
+                      value={signUp.fullName}
+                      onChange={handleInput("signup", "fullName")}
                       required
+                      autoComplete="name"
                     />
                   </div>
                   <div className="space-y-2">
@@ -230,9 +260,10 @@ export function AuthPage() {
                       id="signup-email"
                       type="email"
                       placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={signUp.email}
+                      onChange={handleInput("signup", "email")}
                       required
+                      autoComplete="username"
                     />
                   </div>
                   <div className="space-y-2">
@@ -240,21 +271,25 @@ export function AuthPage() {
                     <Input
                       id="signup-password"
                       type="password"
-                      placeholder="Minimum 6 characters"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Minimum 6 characters, include a number"
+                      value={signUp.password}
+                      onChange={handleInput("signup", "password")}
                       required
                       minLength={6}
+                      autoComplete="new-password"
                     />
                   </div>
+                  {error.signup && (
+                    <p className="text-sm text-red-600">{error.signup}</p>
+                  )}
                 </CardContent>
                 <CardFooter>
                   <Button
                     type="submit"
                     className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-civic"
-                    disabled={loading}
+                    disabled={loading.signup}
                   >
-                    {loading && (
+                    {loading.signup && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
                     Create Account
