@@ -34,7 +34,7 @@ const OnTopBar: React.FC = () => {
     <button>
         <div className="">
         {isvisible && (
-        <div className="fixed bottom-6 right-5 text-xl font-bold z-50 bg-gray-800 hover:bg-black hover:bg-black/90 w-12 h-12 flex items-center justify-center  text-white p-3 rounded-full cursor-pointer transition-opacity duration-300 ease-in-out hover:scale-[1.1] focus:border-spacing-2 hover:border-spacing-4" onClick={onTopbtn}>
+        <div className="fixed bottom-6 right-5 text-xl font-bold z-50 bg-gray-800 hover:bg-black hover:bg-black/90 w-12 h-12 flex items-center justify-center  text-white p-3 rounded-full cursor-pointer transition-opacity duration-300 ease-in-out hover:scale-[1.2] focus:border-spacing-2 hover:border-spacing-4" onClick={onTopbtn}>
           <FaArrowUpLong />
         </div>
       )}
