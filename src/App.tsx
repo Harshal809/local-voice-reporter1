@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import IssueDetails from "./pages/IssueDetails";
 import Footer from "./components/ui/Footer";
 import NotFound from "./pages/NotFound";
+import OnTopBar from "./components/ui/TopBar";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <OnTopBar />
           <Footer />
         </div>
       </BrowserRouter>
