@@ -8,8 +8,9 @@ import Index from "./pages/Index";
 import { AuthPage } from "./components/auth/AuthPage";
 import ReportIssue from "./pages/ReportIssue";
 import Dashboard from "./pages/Dashboard";
-import AdminPanel from "./pages/AdminPanel";
+// import AdminPanel from "./pages/AdminPanel";
 import IssueDetails from "./pages/IssueDetails";
+import Footer from "./components/ui/Footer";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,11 +28,12 @@ const App = () => (
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/report" element={<ReportIssue />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/admin" element={<AdminPanel />} />
+            {/* <Route path="/admin" element={<AdminPanel />} /> */}
             <Route path="/issues/:id" element={<IssueDetails />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </div>
       </BrowserRouter>
     </TooltipProvider>
