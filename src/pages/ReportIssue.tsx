@@ -283,13 +283,13 @@ const ReportIssue = () => {
                   {gettingLocation ? (
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                   ) : (
-                    <MapPin className="h-4 w-4 mr-2" />
+                    <MapPin className="h-4 w-4 mr-3" />
                   )}
                   {gettingLocation ? 'Getting Location...' : 'Use Current Location'}
                 </Button>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="latitude">Latitude</Label>
                   <Input
