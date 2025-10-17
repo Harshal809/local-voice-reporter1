@@ -107,8 +107,8 @@ import { useState, useEffect } from "react";
                       href={link.path}
                       className="text-gray-400 hover:text-blue-400 hover:font-medium transition-all duration-300 flex items-center group-hover:translate-x-1"
                     >
-                      <span className="absolute bottom-0 left-0 w-full inline-block h-0.5 bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                      {link.name}
+                      {/* <span className="absolute bottom-0 left-0 w-full inline-block h-0.5 bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {link.name} */}
                     </a>
                   </li>
                 ))}
